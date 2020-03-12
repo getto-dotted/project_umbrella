@@ -99,6 +99,8 @@
 		/* alert(x);	 */	
 	};
 	
+	
+	
 	function daumZipFind(num){
 	    new daum.Postcode({
 	        oncomplete: function(data) {
