@@ -60,9 +60,10 @@
       <!-- /.col-lg-8 -->
       <div class="col-lg-5">
         <h1 class="font-weight-light">오늘 우산 필요해?</h1>
-        <p>당신이 우산을 들고 가야할지 지금 바로 알려드립니다.</p>
-        <a class="btn btn-primary" href="#">시작하기</a>
-        
+        <p>당신이 우산을 들고 가야할지 <br/>지금 바로 알려드립니다.</p>
+<!--         <a class="btn btn-primary" href="#">시작하기</a>
+ -->        
+ <input type="button" value ='확인' onclick="getCookie()"/>
       </div>
       <!-- /.col-md-4 -->
     </div>
@@ -78,7 +79,31 @@
     	<input type="text" name="address" width="5000px;"/>
     </form>
 <script>
-	function go(num){
+	window.onload = function(){
+		var x1 = document.cookie;		
+		/* alert(x1); */
+	};
+		
+	function getCookie(){	  
+	    var decodedCookie = document.cookie;
+	    var ca = decodedCookie.split(';');
+	    console.log(ca);
+	    for(var i = 0; i <ca.length; i++){	
+	    	/* location1=adsfasdf location2=adsfasdf location3=asdfadsf 중 무엇이 나와도 매칭된다면 들어가야 함*/
+	    	var i2 = i+1;
+	    	var oname = "location"+i2;
+	    	var name = "location"+i2+"=";
+	    	var c = ca[i];    	
+	    	
+	    	console.log(oname);
+	    	if(ca.includes(name)==false){
+	    		var ccc = c.substring(name.length+1, c.length);	    		
+	    		document.getElementById(oname).innerHTML = ccc;
+	    	};   	
+	    };
+	};
+	
+	function go(num){	
 		var q = document.getElementById('location'+num).innerHTML;
 		var x = document.cookie;
 		var re = new RegExp('군$');
@@ -98,8 +123,6 @@
 		}; 
 		/* alert(x);	 */	
 	};
-	
-	
 	
 	function daumZipFind(num){
 	    new daum.Postcode({
