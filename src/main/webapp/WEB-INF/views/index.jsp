@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <head>
 
   <meta charset="utf-8">
@@ -9,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Small Business - Start Bootstrap Template</title>
+  <title>B Ω ?</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -61,52 +62,89 @@
         <h1 class="font-weight-light">오늘 우산 필요해?</h1>
         <p>당신이 우산을 들고 가야할지 지금 바로 알려드립니다.</p>
         <a class="btn btn-primary" href="#">시작하기</a>
+        
       </div>
       <!-- /.col-md-4 -->
     </div>
     <!-- /.row -->
 
     <!-- Call to Action Well -->
-    <div class="card text-white bg-secondary my-5 py-4 text-center">
+    <!-- <div class="card text-white bg-secondary my-5 py-4 text-center">
       <div class="card-body">
         <p class="text-white m-0"></p>
       </div>
-    </div>
-
+    </div> -->
+    <form action="" name='addressForm'>    	
+    	<input type="text" name="address" width="5000px;"/>
+    </form>
+<script>
+	function go(num){
+		var q = document.getElementById('location'+num).innerHTML;
+		var x = document.cookie;
+		var re = new RegExp('군$');
+		var arrState = ['경기', '강원', '경북', '경남', '충남', '충북', '전남', '전북'];
+		var y = q.split(' ');
+		
+		if(y[0]=='광주'){
+			alert('광주광역시');
+		}
+		else if(re.test(y[1])){
+			alert(y[1]);
+		}
+		else if(arrState.includes(y[0]) == true){
+			alert(y[1]);		
+		}else{
+			alert(y[0]);
+		}; 
+		/* alert(x);	 */	
+	};
+	
+	function daumZipFind(num){
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	        	var f = document.addressForm;	
+				var h = data.address;	 
+	        	f.address.value = data.address;	    
+	        	document.getElementById('location'+num).innerHTML= h;
+	        	document.cookie = 'location'+num+"="+h+"; expires=365;";
+	        }
+	    }).open();
+	}
+</script>
     <!-- Content Row -->
     <div class="row">
       <div class="col-md-4 mb-5">
         <div class="card h-100">
-          <div class="card-body">
-            <h2 class="card-title">1번 지역</h2>
-            <p class="card-text">서울특별시</p>
+          <div class="card-body" onclick="go(1)">
+            <h2 class="card-title" id='location1'>1번 지역</h2>
+            <!-- <p class="card-text">서울특별시</p> -->
           </div>
           <div class="card-footer">
-            <a href="#" class="btn btn-primary btn-sm">검색</a>
+            <input type="button" value='주소설정하기'  onclick="daumZipFind(1)"/>
           </div>
         </div>
       </div>
       <!-- /.col-md-4 -->
       <div class="col-md-4 mb-5">
         <div class="card h-100">
-          <div class="card-body">
-            <h2 class="card-title">2번 지역</h2>
-            <p class="card-text">부산광역시</p>
+          <div class="card-body" onclick="go(2)">
+            <h2 class="card-title" id='location2'>2번 지역</h2>
+            <!-- <p class="card-text">부산광역시</p> -->
           </div>
           <div class="card-footer">
-            <a href="#" class="btn btn-primary btn-sm">검색</a>
+            <input type="button" value='주소설정하기'  onclick="daumZipFind(2)"/>
           </div>
         </div>
       </div>
       <!-- /.col-md-4 -->
       <div class="col-md-4 mb-5">
         <div class="card h-100">
-          <div class="card-body">
-            <h2 class="card-title">3번 지역</h2>
-            <p class="card-text">대전광역시</p>
+          <div class="card-body" onclick="go(3)">
+            <h2 class="card-title" id='location3'>3번 지역</h2>
+            <!-- <p class="card-text">대전광역시</p> -->
           </div>
           <div class="card-footer">
-            <a href="#" class="btn btn-primary btn-sm">검색</a>
+            <input type="button" value='주소설정하기'  onclick="daumZipFind(3)"/>
           </div>
         </div>
       </div>
