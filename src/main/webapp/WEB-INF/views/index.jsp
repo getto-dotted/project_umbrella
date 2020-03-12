@@ -86,7 +86,7 @@
 		var y = q.split(' ');
 		
 		if(y[0]=='광주'){
-			alert('광주광역시');
+			alert('광주광역시'); 
 		}
 		else if(re.test(y[1])){
 			alert(y[1]);
