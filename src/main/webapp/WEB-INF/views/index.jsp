@@ -63,7 +63,6 @@
         <p>당신이 우산을 들고 가야할지 <br/>지금 바로 알려드립니다.</p>
 <!--         <a class="btn btn-primary" href="#">시작하기</a>
  -->        
- <input type="button" value ='확인' onclick="getCookie()"/>
       </div>
       <!-- /.col-md-4 -->
     </div>
@@ -75,30 +74,34 @@
         <p class="text-white m-0"></p>
       </div>
     </div> -->
+    <!-- 나중에 hidden form 처리 -->
     <form action="" name='addressForm'>    	
     	<input type="text" name="address" width="5000px;"/>
     </form>
 <script>
-	window.onload = function(){
-		var x1 = document.cookie;		
-		/* alert(x1); */
-	};
-		
-	function getCookie(){	  
+	window.onload = function(){	  
 	    var decodedCookie = document.cookie;
 	    var ca = decodedCookie.split(';');
-	    console.log(ca);
-	    for(var i = 0; i <ca.length; i++){	
-	    	/* location1=adsfasdf location2=adsfasdf location3=asdfadsf 중 무엇이 나와도 매칭된다면 들어가야 함*/
-	    	var i2 = i+1;
-	    	var oname = "location"+i2;
-	    	var name = "location"+i2+"=";
+	    
+	    for(var i = 0; i <ca.length; i++){		    	
+	    	var i2 = i+1;	    	
+	    	var name = "location"+i2+"=";	
+	    	var re1 = new RegExp('location1');
+	    	var re2 = new RegExp('location2');
+	    	var re3 = new RegExp('location3');
 	    	var c = ca[i];    	
 	    	
-	    	console.log(oname);
-	    	if(ca.includes(name)==false){
-	    		var ccc = c.substring(name.length+1, c.length);	    		
-	    		document.getElementById(oname).innerHTML = ccc;
+	    	if(re1.test(ca[i])){
+	    		var ccc = c.substring(name.length, c.length).replace('=','');	    		
+	    		document.getElementById('location1').innerHTML = ccc;
+	    	}  	
+	    	else if(re2.test(ca[i])){
+	    		var ccc = c.substring(name.length, c.length).replace('=','');	    		
+	    		document.getElementById('location2').innerHTML = ccc;
+	    	}  	
+	    	else if(re3.test(ca[i])){
+	    		var ccc = c.substring(name.length, c.length).replace('=','');	    		
+	    		document.getElementById('location3').innerHTML = ccc;
 	    	};   	
 	    };
 	};
