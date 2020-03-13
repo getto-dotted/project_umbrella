@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -54,8 +55,15 @@
 
     <!-- Heading Row -->
     <div class="row align-items-center my-5">
-      <div class="col-lg-7">
-        <img class="img-fluid rounded mb-4 mb-lg-0" src="<%= request.getContextPath()%>/images/umbrella.jpg" alt="">
+      <div class="col-lg-7"> 
+      <c:choose>
+      	<c:when test = "${age1== 'sunny' }">     
+        <img class="img-fluid rounded mb-4 mb-lg-0" src="<%= request.getContextPath()%>/images/aa.jpg" alt="">
+        </c:when>
+        <c:otherwise>
+        <img class="img-fluid rounded mb-4 mb-lg-0" src="<%= request.getContextPath()%>/images/bb.jpg" alt="">
+        </c:otherwise>
+       </c:choose>
       </div>
       <!-- /.col-lg-8 -->
       <div class="col-lg-5">
@@ -74,12 +82,10 @@
         <p class="text-white m-0"></p>
       </div>
     </div> -->
-    <!-- 나중에 hidden form 처리 -->
-     <form action="weather.do" name='addressForm'>    	
-    	<input type="text" name="name" value="pppppp"/>
-    	<input type="text" name="age" value="5555"/>
-    	<input type="submit" />
-    </form>
+   <input type="text" value="${name1 }"/>
+   <input type="text" value="${name2 }"/>
+   <input type="text" value="${age1 }"/>
+   <input type="text" value="${age2 }"/>
 <script>
 	window.onload = function(){	  
 	    var decodedCookie = document.cookie;
