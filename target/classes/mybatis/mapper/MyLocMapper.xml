@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mybatis.MyLocDAO">
+	
+	<select id="getTotalCount" resultType="int" parameterType="hashmap">
+		SELECT COUNT(*) FROM loc_data where 1=1
+		<if test="searchWord!=null and !searchWord.equals('')">
+			AND ${searchColumn} LIKE concat('%',#{searchWord},'%')
+		</if>		
+	</select>		
+	
+	<select id="listPage" resultType="mybatis.MyLocDTO" parameterType="hashmap">
+		SELECT * FROM (
+			  SELECT @rownum:=@rownum+1  rnum, A.* FROM loc_data A, 
+			      (SELECT @ROWNUM := 0) R  WHERE 1=1
+			  		<if test="searchWord!=null and !searchWord.equals('')">
+						AND ${searchColumn} LIKE concat('%',#{searchWord},'%')
+					</if>
+				  ORDER BY idx DESC
+				  ) list
+			WHERE rnum between #{start} AND #{end};
+	</select>	
+	
+	<delete id="delete">
+		DELETE FROM loc_data WHERE idx=#{param1}
+	</delete>
+	
+</mapper>

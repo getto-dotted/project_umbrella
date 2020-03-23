@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mybatis.MybatisDAO">
+	
+	<select id="getTotalCount" resultType="int" parameterType="hashmap">
+		SELECT COUNT(*) FROM bbs where 1=1
+		<if test="searchWord!=null and !searchWord.equals('')">
+			AND ${searchColumn} LIKE concat('%',#{searchWord},'%')
+		</if>		
+	</select>		
+	
+	<select id="listPage" resultType="mybatis.MyBoardDTO" parameterType="hashmap">
+		SELECT * FROM (
+			  SELECT @rownum:=@rownum+1  rnum, A.* FROM bbs A, 
+			      (SELECT @ROWNUM := 0) R  WHERE 1=1
+			  		<if test="searchWord!=null and !searchWord.equals('')">
+						AND ${searchColumn} LIKE concat('%',#{searchWord},'%')
+					</if>
+				  ORDER BY idx DESC
+				  ) list
+			WHERE rnum between #{start} AND #{end};
+	</select>
+	
+	<insert id="write">
+		INSERT INTO bbs (name, pass, content) VALUES
+		(#{_name}, #{_pass}, #{_contents})
+	</insert>
+	
+	<select id="view" resultType="mybatis.MyBoardDTO" parameterType="mybatis.ParameterDTO">
+		SELECT * FROM bbs WHERE idx=#{board_idx}
+	</select>
+	
+	<update id="modify">
+		UPDATE bbs SET name =#{param2}, content=#{param3} WHERE idx=#{param1} AND pass=#{param4}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM bbs WHERE idx=#{param1} AND pass=#{param2}
+	</delete>
+	
+</mapper>
