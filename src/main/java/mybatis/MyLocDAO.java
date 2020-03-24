@@ -15,7 +15,7 @@ public interface MyLocDAO {
 	
 	//글쓰기 처리
 	
-	public int write(
+	public Integer write(
 			@Param("_loc") String loc, 
 			@Param("_today") String today, 
 			@Param("_tomorrow") String tomorrow);

@@ -11,6 +11,10 @@
 		<if test="searchWord!=null and !searchWord.equals('')">
 			AND ${searchColumn} LIKE concat('%',#{searchWord},'%')
 		</if>		
+	</select>	
+		
+	<select id="write">
+		insert into loc_data (loc, today, tomorrow) values (#{_loc}, #{_today}, #{_tomorrow})	
 	</select>		
 	
 	<select id="listPage" resultType="mybatis.MyLocDTO" parameterType="hashmap">

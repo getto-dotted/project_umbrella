@@ -24,8 +24,7 @@
 	window.onload = function(){//페이지 시작시 실행
 	    var Cookies = document.cookie;//쿠키를 가져옴
 	    var ca = Cookies.split(';');//가져온 쿠키의 내용을 ;를 기준으로 나눔
-	    
-	    
+	    	    
 	    for(var i = 0; i <ca.length; i++){//쿠키의 내용물을 하나씩 꺼내서 정규표현식의 내용과 비교함	
 	    	var i2 = i+1;	    	
 	    	var name = "location"+i2+"=";	
@@ -56,24 +55,25 @@
 		var y = q.split(' ');
 		
 		if(y[0]=='광주'){			
-			apiCall(y[0]);
+			apiCall(y[0],q);
 		}
 		else if(re.test(y[1])){			
-			apiCall(y[1]);
+			apiCall(y[1],q);
 		}
 		else if(arrState.includes(y[0]) == true){			
-			apiCall(y[1]);
+			apiCall(y[1],q);
 		}else{			
-			apiCall(y[0]);
+			apiCall(y[0],q);
 		}; 		
 	};
 	
-	function apiCall(name){
-		if(name == '1번' | name == '2번' | name == '3번'){
+	function apiCall(name,loc){
+		if(name == '우리집' | name == '직장' | name == '관심가는 곳'){
 			alert('먼저 주소지를 설정해주세요.');
 			return false;
 		}		
 		document.getElementById('apiName').value = name;
+		document.getElementById('loc').value = loc;
 		document.getElementById('findForm').submit();			
 	};
 	
@@ -132,6 +132,7 @@
     </div>
     <form action="weather.do" id='findForm'>    	
     	<input type="hidden" id="apiName" name="name" value=""/>
+    	<input type="hidden" id="loc" name="loc" value=""/>
     </form>
     <!-- Content Row -->
     <div class="row">

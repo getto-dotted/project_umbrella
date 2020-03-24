@@ -21,7 +21,82 @@
   <link href="css/small-business.css" rel="stylesheet">
 
 </head>
-
+<script>
+	window.onload = function(){	  
+	    var Cookies = document.cookie;
+	    var ca = Cookies.split(';');	
+	    var today = document.getElementById('today').value;
+	    var tomorrow = document.getElementById('tomorrow').value;
+	    var loc = document.getElementById('loc').value;
+	    
+	    document.getElementById('writeForm').submit();
+	    
+	    
+	    for(var i = 0; i <ca.length; i++){		    	
+	    	var i2 = i+1;	    	
+	    	var name = "location"+i2+"=";	
+	    	var re1 = new RegExp('location1');
+	    	var re2 = new RegExp('location2');
+	    	var re3 = new RegExp('location3');
+	    	var c = unescape(ca[i]);    	
+	    	
+	    	if(re1.test(ca[i])){
+	    		var ccc = c.substring(name.length, c.length).replace('=','');	    		
+	    		document.getElementById('location1').innerHTML = ccc;
+	    	}  	
+	    	else if(re2.test(ca[i])){
+	    		var ccc = c.substring(name.length, c.length).replace('=','');	    		
+	    		document.getElementById('location2').innerHTML = ccc;
+	    	}  	
+	    	else if(re3.test(ca[i])){
+	    		var ccc = c.substring(name.length, c.length).replace('=','');	    		
+	    		document.getElementById('location3').innerHTML = ccc;
+	    	};   	
+	    };
+	};
+	
+	function nameSub(num){//주소카드에 저장된 이름을 검색에 필요한 부분만 전송준비
+		var q = document.getElementById('location'+num).innerHTML;		
+		var re = new RegExp('군$');
+		var arrState = ['경기', '강원', '경북', '경남', '충남', '충북', '전남', '전북'];
+		var y = q.split(' ');
+		
+		if(y[0]=='광주'){			
+			apiCall(y[0],q);
+		}
+		else if(re.test(y[1])){			
+			apiCall(y[1],q);
+		}
+		else if(arrState.includes(y[0]) == true){			
+			apiCall(y[1],q);
+		}else{			
+			apiCall(y[0],q);
+		}; 		
+	};
+	
+	function apiCall(name,loc){
+		if(name == '우리집' | name == '직장' | name == '관심가는 곳'){
+			alert('먼저 주소지를 설정해주세요.');
+			return false;
+		}		
+		document.getElementById('apiName').value = name;
+		document.getElementById('loc').value = loc;
+		document.getElementById('findForm').submit();			
+	};
+	
+	function daumZipFind(num){
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	        	var f = document.addressForm;	
+				var h = data.address;	 	        	
+				var date = new Date();
+                date.setTime(date.getTime() + 999*24*60*60*1000);
+	        	document.getElementById('location'+num).innerHTML= h;
+	        	document.cookie = 'location'+num+"="+escape(h)+"; expires=" + date.toUTCString() + ';';
+	        }
+	    }).open();
+	};
+</script>
 <body>
 <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -44,7 +119,12 @@
 
   <!-- Page Content -->
   <div class="container">
-
+  
+  <form action="writeM" id = "writeForm">  
+	<input type="hidden" name="today" value="${today }" id="today"/>
+	<input type="hidden" name="tomorrow" value="${tomorrow }" id="tomorrow"/>
+	<input type="hidden" name="loc" value="${loc }" id="loc"/>
+  </form>
     <!-- Heading Row -->
     <div class="row align-items-center my-5">
       <div class="col-lg-6"> 
@@ -71,77 +151,9 @@
     </div>
     <form action="weather.do" id='findForm'>    	
     	<input type="hidden" id="apiName" name="name" value=""/>
+    	<input type="hidden" id="loc" name="loc" value=""/>
     </form>
-<script>
-	window.onload = function(){	  
-	    var Cookies = document.cookie;
-	    var ca = Cookies.split(';');
-	    //alert(Cookies);
-	    
-	    for(var i = 0; i <ca.length; i++){		    	
-	    	var i2 = i+1;	    	
-	    	var name = "location"+i2+"=";	
-	    	var re1 = new RegExp('location1');
-	    	var re2 = new RegExp('location2');
-	    	var re3 = new RegExp('location3');
-	    	var c = unescape(ca[i]);    	
-	    	
-	    	if(re1.test(ca[i])){
-	    		var ccc = c.substring(name.length, c.length).replace('=','');	    		
-	    		document.getElementById('location1').innerHTML = ccc;
-	    	}  	
-	    	else if(re2.test(ca[i])){
-	    		var ccc = c.substring(name.length, c.length).replace('=','');	    		
-	    		document.getElementById('location2').innerHTML = ccc;
-	    	}  	
-	    	else if(re3.test(ca[i])){
-	    		var ccc = c.substring(name.length, c.length).replace('=','');	    		
-	    		document.getElementById('location3').innerHTML = ccc;
-	    	};   	
-	    };
-	};
-	
-	function nameSub(num){	
-		var q = document.getElementById('location'+num).innerHTML;
-		var re = new RegExp('군$');
-		var arrState = ['경기', '강원', '경북', '경남', '충남', '충북', '전남', '전북'];
-		var y = q.split(' ');
-		
-		if(y[0]=='광주'){			
-			apiCall(y[0]);
-		}
-		else if(re.test(y[1])){			
-			apiCall(y[1]);
-		}
-		else if(arrState.includes(y[0]) == true){			
-			apiCall(y[1]);
-		}else{			
-			apiCall(y[0]);
-		}; 		
-	};
-	
-	function apiCall(name){
-		if(name == '1번' | name == '2번' | name == '3번'){
-			alert('먼저 주소지를 설정해주세요.');
-			return false;
-		}
-		document.getElementById('apiName').value = name;
-		document.getElementById('findForm').submit();	
-	};
-	
-	function daumZipFind(num){
-	    new daum.Postcode({
-	        oncomplete: function(data) {
-	        	var f = document.addressForm;	
-				var h = data.address;	 	        	
-				var date = new Date();
-                date.setTime(date.getTime() + 999*24*60*60*1000);
-	        	document.getElementById('location'+num).innerHTML= h;
-	        	document.cookie = 'location'+num+"="+escape(h)+"; expires=" + date.toUTCString() + ';';
-	        }
-	    }).open();
-	};
-</script>
+
     <!-- Content Row -->
     <div class="row">
       <div class="col-md-4 mb-5">

@@ -27,6 +27,7 @@ public class ApiCalling {
 		ModelAndView mv = new ModelAndView();
 		req.setCharacterEncoding("UTF-8");
 		String name = req.getParameter("name");
+		String loc = req.getParameter("loc");
                 
         //String name2 = new String(name.getBytes("8859_1"),"UTF-8");
                 
@@ -56,7 +57,6 @@ public class ApiCalling {
             }
             else {
             	
-            	System.out.println(today+"/////"+ tomorrow);
             	if(today.contains("sunny")) {
             		mv.addObject("today", "sunny");        	
             	}
@@ -68,7 +68,8 @@ public class ApiCalling {
             	}
             	else{
             		mv.addObject("tomorrow", "rainy"); 
-            	}            
+            	}    
+            	mv.addObject("loc",loc);
             	mv.setViewName("result");
             	return mv;
             }

@@ -100,7 +100,32 @@ public class MyLocController {
 		sqlSession.getMapper(MyLocDAO.class).delete(
 				req.getParameter("idx"));
 		
-		return "redirect:login";
+		return "redirect:listM";
+	}
+	
+	@RequestMapping("/writeM")
+	public String write(HttpServletRequest req) {
+		
+		String today;
+		String tomorrow;
+		
+		if(req.getParameter("today")=="sunny") {
+			today="1";
+		}
+		else {
+			today="0";
+		}
+		if(req.getParameter("tomorrow")=="sunny") {
+			tomorrow="1";
+		}
+		else {
+			tomorrow="0";
+		}
+		
+		sqlSession.getMapper(MyLocDAO.class).write(
+				req.getParameter("loc"), today, tomorrow);
+		return "/result";
+		
 	}
 	
 	
