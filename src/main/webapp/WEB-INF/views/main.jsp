@@ -75,20 +75,19 @@
 		document.getElementById('apiName').value = name;
 		document.getElementById('loc').value = loc;
 		document.getElementById('findForm').submit();			
-	};
-	
+	};	
 	
 	function daumZipFind(num){
 	    new daum.Postcode({
 	        oncomplete: function(data) {
 	        	var f = document.addressForm;	
-				var h = data.address;	
-				var s = data.sido;
-				var s2 = data.sigungu;
+				var h = data.address;					
 				var date = new Date();
                 date.setTime(date.getTime() + 999*24*60*60*1000);
 	        	document.getElementById('location'+num).innerHTML= h;
 	        	document.cookie = 'location'+num+"="+escape(h)+"; expires=" + date.toUTCString() + ';';
+	        	//var s = data.sido;
+				//var s2 = data.sigungu;
 	        	//alert(s+" "+s2);
 	        }
 	    }).open();

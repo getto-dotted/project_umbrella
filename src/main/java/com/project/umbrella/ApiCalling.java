@@ -11,14 +11,26 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import mybatis.MyLocDAO;
+
 @Controller
 public class ApiCalling {
+	
+	private SqlSession sqlSession;
+
+	@Autowired
+	public void setSqlSession(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+		System.out.println("@Autowired->ApiCalling");
+	}
 	
 	@RequestMapping(value = "/weather.do", method = RequestMethod.GET)
 	@ResponseBody
@@ -48,8 +60,24 @@ public class ApiCalling {
         	}
         	
         	String today = res.split(" ")[0];
-            String tomorrow = res.split(" ")[1];
-                              
+            String tomorrow = res.split(" ")[1];                              
+            
+            String today2;
+    		String tomorrow2;
+    		
+    		if(today.contains("sunny")) {
+    			today2="1";
+    		}
+    		else {
+    			today2="0";
+    		}
+    		if(tomorrow.contains("sunny")) {
+    			tomorrow2="1";
+    		}
+    		else {
+    			tomorrow2="0";
+    		}   		
+            
             if(today.contains("doctype")) {
             	System.out.println("서버꺼짐");
             	mv.setViewName("404");
@@ -71,7 +99,10 @@ public class ApiCalling {
             	}    
             	mv.addObject("loc",loc);
             	mv.setViewName("result");
-            	return mv;
+            	
+            	sqlSession.getMapper(MyLocDAO.class).write(loc, today2, tomorrow2);
+            	
+            	return mv;            	
             }
             
 			

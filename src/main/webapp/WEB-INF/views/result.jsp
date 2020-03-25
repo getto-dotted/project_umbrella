@@ -25,12 +25,6 @@
 	window.onload = function(){	  
 	    var Cookies = document.cookie;
 	    var ca = Cookies.split(';');	
-	    var today = document.getElementById('today').value;
-	    var tomorrow = document.getElementById('tomorrow').value;
-	    var loc = document.getElementById('loc').value;
-	    
-	    document.getElementById('writeForm').submit();
-	    
 	    
 	    for(var i = 0; i <ca.length; i++){		    	
 	    	var i2 = i+1;	    	
@@ -118,13 +112,7 @@
   </nav>
 
   <!-- Page Content -->
-  <div class="container">
-  
-  <form action="writeM" id = "writeForm">  
-	<input type="hidden" name="today" value="${today }" id="today"/>
-	<input type="hidden" name="tomorrow" value="${tomorrow }" id="tomorrow"/>
-	<input type="hidden" name="loc" value="${loc }" id="loc"/>
-  </form>
+  <div class="container"> 
     <!-- Heading Row -->
     <div class="row align-items-center my-5">
       <div class="col-lg-6"> 
@@ -158,7 +146,8 @@
     <div class="row">
       <div class="col-md-4 mb-5">
         <div class="card h-100">
-          <div class="card-body" onclick="nameSub(1)">
+          <div class="card-body" onclick="nameSub(1)" style="cursor:pointer"
+          onMouseOver="this.style.background='yellow';" onMouseout="this.style.background='';">
             <h2 class="card-title" id='location1'>우리집</h2>
           </div>
           <div class="card-footer" align="center">
@@ -169,7 +158,8 @@
       <!-- /.col-md-4 -->
       <div class="col-md-4 mb-5">
         <div class="card h-100">
-          <div class="card-body" onclick="nameSub(2)">
+          <div class="card-body" onclick="nameSub(2)" style="cursor:pointer"
+          onMouseOver="this.style.background='yellow';" onMouseout="this.style.background='';">
             <h2 class="card-title" id='location2'>직장</h2>
           </div>
           <div class="card-footer" align="center">
@@ -180,7 +170,8 @@
       <!-- /.col-md-4 -->
       <div class="col-md-4 mb-5">
         <div class="card h-100">
-          <div class="card-body" onclick="nameSub(3)">
+          <div class="card-body" onclick="nameSub(3)" style="cursor:pointer"
+          onMouseOver="this.style.background='yellow';" onMouseout="this.style.background='';">
             <h2 class="card-title" id='location3'>관심가는 곳</h2>
           </div>
           <div class="card-footer" align="center">
