@@ -1,6 +1,7 @@
 package mybatis;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class MyLocDTO {
 	private int idx;
@@ -8,11 +9,11 @@ public class MyLocDTO {
 	private int today;
 	private int tomorrow;
 	private String etc;
-	private Date utime;
+	private Timestamp utime;
 	
 	public MyLocDTO() {}
 
-	public MyLocDTO(int idx, String loc, int today, int tomorrow, String etc, Date utime) {
+	public MyLocDTO(int idx, String loc, int today, int tomorrow, String etc, Timestamp utime) {
 		super();
 		this.idx = idx;
 		this.loc = loc;
@@ -22,11 +23,11 @@ public class MyLocDTO {
 		this.utime = utime;
 	}
 
-	public Date getUtime() {
+	public Timestamp getUtime() {
 		return utime;
 	}
 
-	public void setUtime(Date utime) {
+	public void setUtime(Timestamp utime) {
 		this.utime = utime;
 	}
 

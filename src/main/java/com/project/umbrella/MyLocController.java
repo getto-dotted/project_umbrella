@@ -82,8 +82,8 @@ public class MyLocController {
 		for(MyLocDTO dto : lists) {
 			String temp = dto.getLoc().replace("\r\n", "<br/>");
 			dto.setLoc(temp);
+			System.out.println(dto.getUtime());
 		}
-		
 		//모델객체에 저장후 뷰 호출
 		model.addAttribute("lists", lists);	
 		
