@@ -13,15 +13,12 @@ public interface MyLocDAO {
 	//리스트 페이지 처리
 	public ArrayList<MyLocDTO> listPage(Map param);	
 	
-	//글쓰기 처리
-	
+	//글쓰기 처리	
 	public Integer write(
 			@Param("_loc") String loc, 
 			@Param("_today") String today, 
 			@Param("_tomorrow") String tomorrow);
-
-	//게시물 수정
-	public int modify(String idx, String loc, String today, String tomorrow, String etc);
+	
 	//게시물 삭제
 	public int delete(String idx);
 	

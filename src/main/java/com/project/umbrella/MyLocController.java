@@ -81,8 +81,7 @@ public class MyLocController {
 		//내용에 대한 줄바꿈 처리 부분
 		for(MyLocDTO dto : lists) {
 			String temp = dto.getLoc().replace("\r\n", "<br/>");
-			dto.setLoc(temp);
-			System.out.println(dto.getUtime());
+			dto.setLoc(temp);			
 		}
 		//모델객체에 저장후 뷰 호출
 		model.addAttribute("lists", lists);	

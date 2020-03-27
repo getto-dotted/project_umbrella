@@ -68,7 +68,7 @@
 	};
 	
 	function apiCall(name,loc){
-		if(name == '우리집' | name == '직장' | name == '관심가는 곳'){
+		if(name == '우리집' | name == '직장' | name == '관심가는'){
 			alert('먼저 주소지를 설정해주세요.');
 			return false;
 		}		
