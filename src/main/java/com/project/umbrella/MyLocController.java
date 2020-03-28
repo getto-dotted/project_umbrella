@@ -12,14 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
-import mybatis.MemberVO;
 import mybatis.MyLocDTO;
 import mybatis.MyLocDAO;
-import mybatis.MybatisMember;
-import mybatis.ParameterDTO;
+
 import util.EnvFileReader;
 import util.PagingUtil;
 
@@ -41,7 +37,7 @@ public class MyLocController {
 		}	
 		
 		String addQueryString = "";
-		Map param = new HashMap();
+		Map<String, Object> param = new HashMap<String, Object>();
 		
 		String searchColumn = req.getParameter("searchColumn");
 		String searchWord = req.getParameter("searchWord");
@@ -61,7 +57,7 @@ public class MyLocController {
 		int blockPage = 
 				Integer.parseInt(EnvFileReader.getValue("Paging.properties", "blockPage")); 
 		//전체 페이지수 계산
-		int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);		
+		//int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);		
 		//현재 페이지번호 파라미터로 받기
 		int nowPage = req.getParameter("nowPage")==null? 1 : Integer.parseInt(req.getParameter("nowPage"));
 		//쿼리의 start, end값 구하기

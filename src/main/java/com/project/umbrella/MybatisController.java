@@ -38,7 +38,7 @@ public class MybatisController {
 	public String list(Model model, HttpServletRequest req) {
 		
 		String addQueryString = "";
-		Map param = new HashMap();
+		Map<String, Object> param = new HashMap<String, Object>();
 		
 		String searchColumn = req.getParameter("searchColumn");
 		String searchWord = req.getParameter("searchWord");
@@ -58,7 +58,7 @@ public class MybatisController {
 		int blockPage = 
 				Integer.parseInt(EnvFileReader.getValue("Paging.properties", "blockPage")); 
 		//전체 페이지수 계산
-		int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);		
+		//int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);		
 		//현재 페이지번호 파라미터로 받기
 		int nowPage = req.getParameter("nowPage")==null? 1 : Integer.parseInt(req.getParameter("nowPage"));
 		//쿼리의 start, end값 구하기

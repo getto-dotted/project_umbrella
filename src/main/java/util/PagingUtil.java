@@ -1,7 +1,5 @@
 package util;
 
-import javax.servlet.http.HttpServletRequest;
-
 public class PagingUtil {
 	public static String pagingImg(int totalRecordCount, int pageSize, int blockPage, int nowPage, String page, String req) {		
 		String pagingStr = "";		

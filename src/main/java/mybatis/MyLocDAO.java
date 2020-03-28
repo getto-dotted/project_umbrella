@@ -8,10 +8,10 @@ import org.apache.ibatis.annotations.Param;
 public interface MyLocDAO {
 
 	//게시물 수 카운트하기
-	public int getTotalCount(Map param);	
+	public int getTotalCount(Map<String, Object> param);	
 	
 	//리스트 페이지 처리
-	public ArrayList<MyLocDTO> listPage(Map param);	
+	public ArrayList<MyLocDTO> listPage(Map<String, Object> param);	
 	
 	//글쓰기 처리	
 	public Integer write(

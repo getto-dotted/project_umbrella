@@ -11,6 +11,7 @@ public class EnvFileReader {
 	public static String getValue(String envFile, String keyName) {
 		
 		//1.스프링 컨테이너 생성
+		@SuppressWarnings("resource")
 		ConfigurableApplicationContext ctx = new GenericXmlApplicationContext();
 		//2.Environment 객체 생성
 		ConfigurableEnvironment env = ctx.getEnvironment();
