@@ -18,11 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 import mybatis.MyLocDAO;
 
 @Controller
-public class ApiCalling {
+public class ApiCalling {//api를 호출하는 클래스
 	
 	private SqlSession sqlSession;
 
-	@Autowired
+	@Autowired//mybatis를 위한 @Autowired
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 		System.out.println("@Autowired->ApiCalling");
@@ -38,21 +38,23 @@ public class ApiCalling {
 		String loc = req.getParameter("loc");
                 
         //String name2 = new String(name.getBytes("8859_1"),"UTF-8");
-                
-		URL url = new URL ("https://umbrella-machine3.run.goorm.io/?name="+name);
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("GET");
-        con.setRequestProperty("Content-Type", "application/json; UTF-8");
-        con.setRequestProperty("Accept", "application/json");        
+        //구름ide에서는 브라우저 인코딩인 8859_1을 변환시키지 않으면 에러가 난다.
+		
+		URL url = new URL ("https://umbrella-machine3.run.goorm.io/?name="+name);//api정보를 받아올 url주소
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();//url과 연결하고 그것을 HttpURLConnection타입으로 변환한다.
+        con.setRequestMethod("GET");//전송방식을 get으로 설정
+        con.setRequestProperty("Content-Type", "application/json; UTF-8");//받아올 데이터 타입을 utf-8의 json형식으로 지정
+        con.setRequestProperty("Accept", "application/json");
         
         try {        	        	
-        	BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));        	
-        	StringBuilder response = new StringBuilder();            
-        	String responseLine = null;
-        	String res = "";
-        	while ((responseLine = br.readLine()) != null) {
-        		response.append(responseLine.trim()); 
-        		res = response.toString();
+        	BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+        	//읽어온 데이터를 해석할 BufferedReader를 생성한다. UTF-8로 읽어온 InputStream데이터를 InputStreamReader로 읽게 한다.
+        	StringBuilder response = new StringBuilder();//스트링을 이어붙여줄 StringBuilder 객체 생성        
+        	String responseLine = null;//null값의 스트링을 생성한다.
+        	String res = "";//빈값의 스트링을 생성한다.
+        	while ((responseLine = br.readLine()) != null) {//null값으로 생성한 스트링에 값이 들어오면(받아온 데이터가 있으면)
+        		response.append(responseLine.trim());//받아온 데이터에서 공백을 제거하고 StringBuilder객체에 이어붙여준다.
+        		res = response.toString();//빈값의 스트링에 해당 내용을 스트링으로 형변환 하여 입력해준다.
         	}
         	
         	String today = res.split(" ")[0];
