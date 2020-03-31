@@ -24,15 +24,6 @@ public class HomeController {
 	public String e404() {				
 		return "404";
 	}	
-	
-	@RequestMapping("kakao_logout.do")
-    public String kakao_logout(HttpSession session, HttpServletRequest request) {
-        
-        //세션에 담긴값 초기화
-        session.invalidate();
-        
-        return "index";
-    }
 
 	
 }

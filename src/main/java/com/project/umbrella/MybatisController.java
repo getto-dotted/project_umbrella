@@ -24,24 +24,25 @@ import util.EnvFileReader;
 import util.PagingUtil;
 
 @Controller
-public class MybatisController {
+public class MybatisController {//일반 게시판 관련 메소드가 있는 클래스
 	
 	private SqlSession sqlSession;
 
-	@Autowired
+	@Autowired//mybatis를 위한 @Autowired
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 		System.out.println("@Autowired->MyBatisController");
 	}
 	//방명록 리스트
-	@RequestMapping("/list")
+	@RequestMapping("/list")//리스트의 출력/반복/검색 메소드
 	public String list(Model model, HttpServletRequest req) {
 		
-		String addQueryString = "";
-		Map<String, Object> param = new HashMap<String, Object>();
+		String addQueryString = "";//페이지 구분을 위한 쿼리스트링
+		Map<String, Object> param = new HashMap<String, Object>();//DB에 값을 전달하기 위한 Map 생성
+		//<String, Object>과 같은 제네릭을 설정하지 않으면 경고를 자주 띄운다.
 		
-		String searchColumn = req.getParameter("searchColumn");
-		String searchWord = req.getParameter("searchWord");
+		String searchColumn = req.getParameter("searchColumn");//검색할 컬럼값. input type select로 받아온다.
+		String searchWord = req.getParameter("searchWord");//검색할 단어. input type text로 받아온다. -> 인코딩 및 에러 주의
 		
 		if(searchColumn!=null) {
 			//전달된 파라미터가 있을때만 아래 문장 수행
@@ -50,18 +51,15 @@ public class MybatisController {
 			param.put("searchWord", searchWord);
 		}		
 		
-		int totalRecordCount = sqlSession.getMapper(MybatisDAO.class).getTotalCount(param);
+		int totalRecordCount = sqlSession.getMapper(MybatisDAO.class).getTotalCount(param);//페이지 목록에 담겨야할 총 게시물 수를 계산한다.
 		
 		//페이지 처리를 위한 설정값
-		int pageSize = 
-				Integer.parseInt(EnvFileReader.getValue("Paging.properties", "pageSize")); 				
-		int blockPage = 
-				Integer.parseInt(EnvFileReader.getValue("Paging.properties", "blockPage")); 
-		//전체 페이지수 계산
-		//int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);		
+		int pageSize = Integer.parseInt(EnvFileReader.getValue("Paging.properties", "pageSize"));//한 페이지에 출력할 게시물 수를 외부파일에서 가져온다.			
+		int blockPage = Integer.parseInt(EnvFileReader.getValue("Paging.properties", "blockPage"));//전체 페이지 수 한계를 외부파일에서 가져온다.
+				
 		//현재 페이지번호 파라미터로 받기
 		int nowPage = req.getParameter("nowPage")==null? 1 : Integer.parseInt(req.getParameter("nowPage"));
-		//쿼리의 start, end값 구하기
+		//쿼리의 start, end값 구하기, rowNumber를 통한 검색시 활용. 다만 검색에 넣어놓지 않았음.
 		int start = (nowPage-1) * pageSize +1;
 		int end = nowPage * pageSize;
 		param.put("start", start);
