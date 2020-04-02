@@ -65,7 +65,6 @@ public class MybatisController {//일반 게시판 관련 메소드가 있는 �
 		param.put("start", start);
 		param.put("end", end);		
 		
-		//페이지 처리 있는 메소드
 		ArrayList<MyBoardDTO> lists = sqlSession.getMapper(MybatisDAO.class).listPage(param);
 		//페이지 처리를 위한 static메소드 호출
 		String pagingImg = PagingUtil.pagingImg(totalRecordCount, pageSize, blockPage, nowPage,	
