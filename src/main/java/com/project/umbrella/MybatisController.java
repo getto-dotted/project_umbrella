@@ -154,8 +154,8 @@ public class MybatisController {//일반 게시판 관련 메소드가 있는 �
 		
 		//Mapper쪽으로 전달할 파라미터값을 저장할 DTO객체 생성
 		ParameterDTO parameterDTO = new ParameterDTO();
-		parameterDTO.setBoard_idx(req.getParameter("idx"));
-		parameterDTO.setPass(req.getParameter("pass"));		
+		parameterDTO.setBoard_idx(req.getParameter("idx"));//idx를 통해 해당 글의 내용을 가져온다.
+		parameterDTO.setPass(req.getParameter("pass"));//password가 맞을 때만 가져온다.
 		//Interface 호출을 통해 Mapper로 전달
 		MyBoardDTO dto = sqlSession.getMapper(MybatisDAO.class).view(parameterDTO);
 		
@@ -180,8 +180,8 @@ public class MybatisController {//일반 게시판 관련 메소드가 있는 �
 	public String delete(Model model, HttpServletRequest req, HttpSession session) {
 		
 		sqlSession.getMapper(MybatisDAO.class).delete(
-				req.getParameter("idx"),				
-				req.getParameter("pass"));
+				req.getParameter("idx"),//해당 idx를 가진 글을 삭제한다.	
+				req.getParameter("pass"));//password가 맞을때만 삭제한다.
 		
 		return "redirect:list";
 	}
