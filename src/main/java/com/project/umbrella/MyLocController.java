@@ -33,7 +33,7 @@ public class MyLocController {
 	@RequestMapping("/listM")
 	public String list(Model model, HttpServletRequest req, HttpSession session) {
 		if(session.getAttribute("siteUserInfo")==null) {
-			return "redirect:login";
+			return "redirect:login";//관리자만 볼 수 있어야 하므로 세션영역에 저장된 아이디가 없다면 로그인을 요구한다.
 		}	
 		
 		String addQueryString = "";
@@ -88,12 +88,12 @@ public class MyLocController {
 	@RequestMapping("/deleteM")
 	public String delete(Model model, HttpServletRequest req, HttpSession session) {
 		
-		if(session.getAttribute("siteUserInfo")==null) {
+		if(session.getAttribute("siteUserInfo")==null) {//삭제를 시도한 시점에서 관리자 권한을 확인할 수 없을 경우 로그인을 요구한다.
 			return "redirect:login.do";
 		}	
 		
 		sqlSession.getMapper(MyLocDAO.class).delete(
-				req.getParameter("idx"));
+				req.getParameter("idx"));//관리자 권한으로만 입장 가능하므로 비밀번호 입력없이 바로 삭제
 		
 		return "redirect:listM";
 	}
