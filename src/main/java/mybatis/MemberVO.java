@@ -1,15 +1,15 @@
 package mybatis;
 
-import java.sql.Date;
+import java.sql.Timestamp;//mysql에서는 Timestamp를 사용한다.
 
 public class MemberVO {
 
 	private String id;
 	private String pass;
 	private String name;
-	private java.sql.Date regidate;
+	private Timestamp regidate;
 	public MemberVO() {}
-	public MemberVO(String id, String pass, String name, Date regidate) {
+	public MemberVO(String id, String pass, String name, Timestamp regidate) {
 		super();
 		this.id = id;
 		this.pass = pass;
@@ -34,10 +34,10 @@ public class MemberVO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public java.sql.Date getRegidate() {
+	public Timestamp getRegidate() {
 		return regidate;
 	}
-	public void setRegidate(java.sql.Date regidate) {
+	public void setRegidate(Timestamp regidate) {
 		this.regidate = regidate;
 	}
 	
