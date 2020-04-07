@@ -1,6 +1,6 @@
 package mybatis;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class MyBoardDTO {
 		
@@ -8,11 +8,11 @@ public class MyBoardDTO {
 	private String name;
 	private String pass;
 	private String content;
-	private Date postdate;
+	private Timestamp postdate;
 	
 	public MyBoardDTO() {}
 
-	public MyBoardDTO(String name, String content, String pass, Date postdate, String idx) {
+	public MyBoardDTO(String name, String content, String pass, Timestamp postdate, String idx) {
 		super();
 		this.pass = pass;
 		this.name = name;
@@ -53,11 +53,11 @@ public class MyBoardDTO {
 		this.content = content;
 	}
 
-	public Date getPostdate() {
+	public Timestamp getPostdate() {
 		return postdate;
 	}
 
-	public void setPostdate(Date postdate) {
+	public void setPostdate(Timestamp postdate) {
 		this.postdate = postdate;
 	}
 
