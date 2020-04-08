@@ -12,7 +12,7 @@
 			AND ${searchColumn} LIKE concat('%',#{searchWord},'%')
 		</if>		
 	</select>		
-	
+	<!-- mysql에서는 escape문자보다 concat을 쓰는 것이 안전하다. -->
 	<select id="listPage" resultType="mybatis.MyBoardDTO" parameterType="hashmap">
 		SELECT * FROM (
 			  SELECT @rownum:=@rownum+1  rnum, A.* FROM bbs A, 
