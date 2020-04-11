@@ -9,7 +9,7 @@
 
 	<!--  
 		매개변수를 받는 두번째 방법으로 #{0}, #{1}과 같이
-		인덱스로 받을 수 있다.
+		인덱스로 받을 수 있다. mysql에서는 안될수도 있음.
 	-->
 	<select id="login" resultType="mybatis.MemberVO">
 		SELECT * FROM member WHERE id=#{param1} AND pass=#{param2}
