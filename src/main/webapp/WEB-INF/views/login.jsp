@@ -47,8 +47,7 @@ function loginValidate(f)
 			<span style="font-size:1.5em; color:red;">${LoginNg }</span>
 			<form name="loginForm" method="post" action="./loginAction" onsubmit="return loginValidate(this);">
 				<input type="hidden" name="backUrl" value="${param.backUrl }"/>
-				<!--  
-				tabindex : 해당 속성은 input폼에서 tab키로 포커스를
+				<!-- tabindex : 해당 속성은 input폼에서 tab키로 포커스를
 					이동할 때의 순서를 지정하게 된다.
 				-->
 				<table class="table-bordered" style="width:50%;">
