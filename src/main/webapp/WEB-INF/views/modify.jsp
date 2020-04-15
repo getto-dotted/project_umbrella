@@ -35,7 +35,7 @@ function writeValidate(f)
 </script>
 <div class="container">
 	<h3>사용후기 - 
-		<small>저희 서비스가 마음에 드셨거나 개선할 점을 남겨주세요</small></h3>
+		<small>저희 서비스에 만족한 점이나 개선할 점을 남겨주세요</small></h3>
 	
 	<form name="writeFrm" method="post" 
 		onsubmit="return writeValidate(this);"
