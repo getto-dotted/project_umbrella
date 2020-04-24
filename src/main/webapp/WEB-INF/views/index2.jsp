@@ -33,8 +33,7 @@
         </ul>
       </div>
     </div>
-  </nav>
-  
+  </nav> 
   
   <!-- Page Content -->
   <div class="container">
