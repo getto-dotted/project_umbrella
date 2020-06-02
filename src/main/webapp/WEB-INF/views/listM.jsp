@@ -84,9 +84,11 @@ function deleteRow(idx){
 		</div>	 
 	</c:forEach>	
 	<!-- 방명록 반복 부분 e -->
-	<ul class="pagination justify-content-center">
-		${pagingImg }
-	</ul>
+	<table class="pagination justify-content-center">
+		<tr>
+			<td>${pagingImg }</td>
+		</tr>
+	</table>
 </div>
 </body>
 </html>
